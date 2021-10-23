@@ -1,0 +1,38 @@
+<div class="login">
+    <div class="wrapper wrapper-login">
+      <div class="container container-login animated fadeIn">
+        <h3 class="text-center">Sign In</h3>
+        <div class="login-form">
+          <form autocomplete="off">
+            <div class="form-group form-floating-label">
+              <input
+                id="username"
+                name="username"
+                type="text"
+                [(ngModel)]="userLoginData.email"
+                class="form-control input-border-bottom"
+                placeholder="Email"
+              />
+            </div>
+            <div class="form-group form-floating-label">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                [(ngModel)]="userLoginData.password"
+                class="form-control input-border-bottom"
+                placeholder="Password"
+              />
+            </div>
+
+            <div class="form-action mb-3">
+              <button  class="btn btn-primary btn-rounded btn-login" (click)="onSubmit()">
+                Sign In
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,18 @@
+<div class="headerMenuContainer" *ngIf="currentUser">
+  <div>
+    <span class="headerMenuItem"><a [routerLink]="''">Lista Taskova</a></span>
+    <span class="headerMenuItem"><a [routerLink]="'users'">Korisnici</a></span>
+  </div>
+  <div style="display: flex; align-items: center">
+    <span
+      class="headerMenuItem"
+      style="color: rgba(255, 255, 255, 0.6); margin-right: 10px"
+    >
+      {{ currentUser?.firstName + " " + currentUser?.lastName }}</span
+    >
+    <span class="headerMenuItem" (click)="logout()" style="cursor: pointer"
+      ><a>Odjavi se</a></span
+    >
+  </div>
+</div>
+<router-outlet></router-outlet>

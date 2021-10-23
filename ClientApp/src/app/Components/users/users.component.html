@@ -1,0 +1,97 @@
+<div class="mainWrapper">
+  <div class="pageHeader">Lista Korisnika</div>
+
+  <div class="mainContainer">
+    <div class="filterContainer">
+      <div class="attGallerySearchBar">
+        <div class="attGallerySearchDiv">
+          <input
+            class="searchBarInput"
+            type="text"
+            placeholder="Pretraži korisnike"
+            [(ngModel)]="searchBoxValue"
+          />
+          <i class="fas fa-search searchBarIcon"></i>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-round" (click)="addUser()">
+        <i class="fa fa-plus"></i>
+        Dodaj Novog Korisnika
+      </button>
+    </div>
+    <div class="usersContainer">
+      <table class="usersTable">
+        <colgroup>
+          <col span="1" style="width: 10%" />
+          <col span="1" style="width: 30%" />
+          <col span="1" style="width: 25%" />
+          <col span="1" style="width: 25%" />
+          <col span="1" style="width: 10%" />
+        </colgroup>
+        <thead>
+          <th>Uredi</th>
+          <th>Korisničko Ime</th>
+          <th>Ime</th>
+          <th>Prezime</th>
+          <th>Izbriši</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td style="text-align: center" style="cursor: pointer">
+              <button class="gridButton" (click)="editUser(user)">
+                <i
+                  class="fas fa-edit"
+                  style="cursor: pointer; font-size: 16px"
+                ></i
+                >&nbsp;&nbsp;Uredi
+              </button>
+            </td>
+
+            <td>
+              <div>{{ user.email }}</div>
+            </td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>
+              <button
+                class="gridButton"
+                *ngIf="currentUser._id != user._id"
+                (click)="deleteUser(user._id)"
+              >
+                <i
+                  class="fas fa-trash-alt"
+                  style="color: red; cursor: pointer; font-size: 16px"
+                ></i
+                >&nbsp;&nbsp;Izbriši
+              </button>
+            </td>
+
+            <!-- <td style="text-align: center" style="cursor: pointer">
+              <button class="gridButton">
+                <i
+                  class="fas fa-edit"
+                  style="cursor: pointer; font-size: 16px"
+                ></i
+                >&nbsp;&nbsp;Uredi
+              </button>
+            </td>
+            <td>
+              <div>jurica.raspudic@gmail.com</div>
+            </td>
+            <td>Jurica</td>
+            <td>Raspudic</td>
+            <td>
+              <button class="gridButton">
+                <i
+                  class="fas fa-trash-alt"
+                  style="color: red; cursor: pointer; font-size: 16px"
+                ></i
+                >&nbsp;&nbsp;Izbriši
+              </button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

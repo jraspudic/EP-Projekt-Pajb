@@ -1,0 +1,355 @@
+<div class="mainWrapper">
+  <div class="pageHeader">Lista Taskova</div>
+
+  <div class="mainContainer">
+    <div class="filterContainer">
+      <div class="attGallerySearchBar">
+        <div class="attGallerySearchDiv">
+          <input
+            class="searchBarInput"
+            type="text"
+            placeholder="Pretraži taskove"
+            [(ngModel)]="searchBoxValue"
+          />
+          <i class="fas fa-search searchBarIcon"></i>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-round" (click)="addProject()">
+        <i class="fa fa-plus"></i>
+        Dodaj Novi Projekt
+      </button>
+    </div>
+
+    <div *ngFor="let project of tasksDisplay" class="projectConteiner">
+      <div class="projectName">
+        <div>
+          <i class="fas fa-chevron-down" style="cursor: pointer"></i
+          >&nbsp;&nbsp;&nbsp;{{ project.name }}
+          <button
+            class="gridButton"
+            style="margin-left: 20px"
+            (click)="editProject(project)"
+          >
+            <i
+              class="fas fa-edit"
+              style="color: blue; cursor: pointer; font-size: 16px"
+            ></i
+            >&nbsp;&nbsp;Uredi
+          </button>
+        </div>
+
+        <div>
+          <button
+            class="gridButton"
+            style="margin-right: 50px"
+            (click)="newTask(project)"
+          >
+            <i
+              class="fas fa-plus"
+              style="color: blue; cursor: pointer; font-size: 16px"
+            ></i
+            >&nbsp;&nbsp;Novi Task
+          </button>
+        </div>
+      </div>
+      <table *ngIf="project.tasks.length > 0" class="tasksTable">
+        <colgroup>
+          <col span="1" style="width: 12%" />
+          <col span="1" style="width: 30%" />
+          <col span="1" style="width: 30%" />
+          <col span="1" style="width: 10%" />
+          <col span="1" style="width: 18%" />
+        </colgroup>
+        <thead>
+          <th></th>
+          <th style="padding-left: 20px">Naziv</th>
+          <th>Zaduženi</th>
+          <th>Rok</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of project.tasks">
+            <td style="text-align: center" style="cursor: pointer">
+              <button class="gridButton" (click)="editTask(task)">
+                <i
+                  class="fas fa-edit"
+                  style="cursor: pointer; font-size: 16px"
+                ></i
+                >&nbsp;&nbsp;Uredi
+              </button>
+            </td>
+            <td>
+              <div class="tasksContainter">
+                {{ task.name }}
+              </div>
+            </td>
+            <td>
+              <span *ngFor="let user of task.users; let i = index">
+                {{ user.firstName + " " + user.lastName
+                }}<span *ngIf="i != task.users.length - 1">,</span></span
+              >
+            </td>
+            <td>{{ task.endDate | date: "dd/MM/yyyy" }}</td>
+            <td>
+              <div
+                style="display: flex; justify-content: center; column-gap: 5px"
+              >
+                <button class="gridButton" (click)="deleteTask(task)">
+                  <i
+                    class="fas fa-trash-alt"
+                    style="color: red; cursor: pointer; font-size: 16px"
+                  ></i
+                  >&nbsp;&nbsp;Izbriši
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- <div class="projectConteiner">
+      <div class="projectName">
+        <div>
+          <i class="fas fa-chevron-down" style="cursor: pointer"></i
+          >&nbsp;&nbsp;&nbsp;Projekt iz Elektroničkog Poslovanja
+          <button class="gridButton" style="margin-left: 20px">
+            <i
+              class="fas fa-edit"
+              style="color: blue; cursor: pointer; font-size: 16px"
+            ></i
+            >&nbsp;&nbsp;Uredi
+          </button>
+        </div>
+
+        <div>
+          <button class="gridButton" style="margin-right: 50px">
+            <i
+              class="fas fa-plus"
+              style="color: blue; cursor: pointer; font-size: 16px"
+            ></i
+            >&nbsp;&nbsp;Novi Task
+          </button>
+        </div>
+      </div>
+      <table class="tasksTable">
+        <colgroup>
+          <col span="1" style="width: 35%" />
+          <col span="1" style="width: 30%" />
+          <col span="1" style="width: 10%" />
+          <col span="1" style="width: 25%" />
+        </colgroup>
+        <thead>
+          <th style="padding-left: 20px">Naziv</th>
+          <th>Zaduženi</th>
+          <th>Rok</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="tasksContainter">
+                Planiranje i menadžiranje projekta
+              </div>
+            </td>
+            <td>Petra Krešić</td>
+            <td>1/2/2020</td>
+            <td>
+              <div
+                style="display: flex; justify-content: center; column-gap: 5px"
+              >
+                <button class="gridButton">
+                  <i
+                    class="fas fa-trash-alt"
+                    style="color: red; cursor: pointer; font-size: 16px"
+                  ></i
+                  >&nbsp;&nbsp;Izbriši
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tasksContainter">
+                Osmišljavanje dizajna aplikacije
+              </div>
+            </td>
+            <td>Ana Seser</td>
+            <td>2/2/2020</td>
+            <td>
+              <div
+                style="display: flex; justify-content: center; column-gap: 5px"
+              >
+                <button class="gridButton">
+                  <i
+                    class="fas fa-trash-alt"
+                    style="color: red; cursor: pointer; font-size: 16px"
+                  ></i
+                  >&nbsp;&nbsp;Izbriši
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tasksContainter">
+                Razvoj frontend dijela aplikacije
+              </div>
+            </td>
+            <td>Boris Dugandžić</td>
+            <td>4/2/2020</td>
+            <td>
+              <div
+                style="display: flex; justify-content: center; column-gap: 5px"
+              >
+                <button class="gridButton">
+                  <i
+                    class="fas fa-trash-alt"
+                    style="color: red; cursor: pointer; font-size: 16px"
+                  ></i
+                  >&nbsp;&nbsp;Izbriši
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tasksContainter">
+                Razvoj backend dijela aplikacije
+              </div>
+            </td>
+            <td>Jurica Raspudić</td>
+            <td>6/2/2020</td>
+            <td>
+              <div
+                style="display: flex; justify-content: center; column-gap: 5px"
+              >
+                <button class="gridButton">
+                  <i
+                    class="fas fa-trash-alt"
+                    style="color: red; cursor: pointer; font-size: 16px"
+                  ></i
+                  >&nbsp;&nbsp;Izbriši
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+
+    <!-- <div class="projectConteiner">
+      <div class="projectName">
+        <div>
+          <i class="fas fa-chevron-down" style="cursor: pointer"></i
+          >&nbsp;&nbsp;&nbsp;Testni Projekt
+        </div>
+        <div>
+          <button class="gridButton" style="margin-right: 50px">
+            <i
+              class="fas fa-plus"
+              style="color: blue; cursor: pointer; font-size: 16px"
+            ></i
+            >&nbsp;&nbsp;Novi Task
+          </button>
+        </div>
+      </div>
+      <table class="tasksTable">
+        <colgroup>
+          <col span="1" style="width: 35%" />
+          <col span="1" style="width: 30%" />
+          <col span="1" style="width: 10%" />
+          <col span="1" style="width: 25%" />
+        </colgroup>
+        <thead>
+          <th style="padding-left: 20px">Naziv</th>
+          <th>Zaduženi</th>
+          <th>Rok</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="tasksContainter">Task 1</div>
+            </td>
+            <td>Osoba1, Osoba2</td>
+            <td>8/2/2020</td>
+            <td>
+              <div
+                style="display: flex; justify-content: center; column-gap: 5px"
+              >
+                <button class="gridButton">
+                  <i
+                    class="fas fa-trash-alt"
+                    style="color: red; cursor: pointer; font-size: 16px"
+                  ></i
+                  >&nbsp;&nbsp;Izbriši
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tasksContainter">Task 2</div>
+            </td>
+            <td>Osoba2</td>
+            <td>14/3/2020</td>
+            <td>
+              <div
+                style="display: flex; justify-content: center; column-gap: 5px"
+              >
+                <button class="gridButton">
+                  <i
+                    class="fas fa-trash-alt"
+                    style="color: red; cursor: pointer; font-size: 16px"
+                  ></i
+                  >&nbsp;&nbsp;Izbriši
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tasksContainter">Task 3</div>
+            </td>
+            <td>Osoba1, Osoba2, Osoba3</td>
+            <td>13/2/2020</td>
+            <td>
+              <div
+                style="display: flex; justify-content: center; column-gap: 5px"
+              >
+                <button class="gridButton">
+                  <i
+                    class="fas fa-trash-alt"
+                    style="color: red; cursor: pointer; font-size: 16px"
+                  ></i
+                  >&nbsp;&nbsp;Izbriši
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tasksContainter">Task 4</div>
+            </td>
+            <td>Osoba4, Osoba5</td>
+            <td>17/3/2020</td>
+            <td>
+              <div
+                style="display: flex; justify-content: center; column-gap: 5px"
+              >
+                <button class="gridButton">
+                  <i
+                    class="fas fa-trash-alt"
+                    style="color: red; cursor: pointer; font-size: 16px"
+                  ></i
+                  >&nbsp;&nbsp;Izbriši
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+  </div>
+</div>

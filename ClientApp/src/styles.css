@@ -1,0 +1,205 @@
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-dropdowns/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-lists/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-angular-dropdowns/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-lists/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-calendars/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-angular-calendars/styles/material.css";
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5f8fc;
+  height: 100%;
+}
+
+.mainWrapper {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  margin-top: 50px;
+}
+
+.pageHeader {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-top: 40px;
+  flex: 0 1 auto;
+}
+
+.mainContainer {
+  flex: 1 1 auto;
+  background-color: #fff;
+  margin: 50px 100px;
+  border-radius: 6px;
+  padding: 00px 30px 50px;
+}
+
+.projectName {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.tasksContainter {
+  cursor: pointer;
+  padding: 20px;
+}
+
+.tasksTable {
+  width: 100%;
+  margin-left: 30px;
+}
+
+.tasksTable th,
+.tasksTable td {
+  text-align: left;
+}
+
+.tasksTable .tasksContainter:hover {
+  background-color: #eee;
+}
+
+.projectConteiner {
+  border-bottom: 5px solid dodgerblue;
+  padding-bottom: 20px;
+  margin-top: 30px;
+}
+
+.attGallerySearchDiv {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1px;
+}
+
+.searchBarInput {
+  padding: 8px;
+  border: 0;
+  font-size: 14px;
+}
+
+.searchBarIcon {
+  font-size: 16px;
+  color: #777;
+  padding: 10px;
+}
+
+.filterContainer {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 30px;
+  flex-wrap: wrap;
+  row-gap: 20px;
+}
+
+.searchBarInput:focus {
+  outline: none;
+}
+
+.gridButton {
+  padding: 8px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.gridButton:hover {
+  background-color: #ddd;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.65rem 1.4rem;
+  font-size: 14px;
+  opacity: 1;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn-primary,
+.btn-primary:disabled,
+.btn-primary:focus,
+.btn-primary:hover {
+  background: #1572e8 !important;
+  border-color: #1572e8 !important;
+  cursor: pointer;
+  color: #fff;
+}
+.btn-round {
+  border-radius: 100px !important;
+}
+
+.form-label {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form-text-input {
+  border: 1px solid #aaa;
+  padding: 10px;
+  width: 75%;
+  border-radius: 6px;
+}
+
+.btn-danger,
+.btn-danger:disabled,
+.btn-danger:focus,
+.btn-danger:hover {
+  background: #f25961 !important;
+  border-color: #f25961 !important;
+  color: #fff;
+}
+
+.btn-success,
+.btn-success:disabled,
+.btn-success:focus,
+.btn-success:hover {
+  background: #31ce36 !important;
+  border-color: #31ce36 !important;
+  color: #fff;
+}
+
+/************* header ***********************/
+.headerMenuContainer {
+  display: flex;
+  background-color: #1572e8;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  justify-content: space-between;
+}
+
+.headerMenuItem {
+  float: left;
+}
+
+.headerMenuItem a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+.headerMenuItem a:hover {
+  background-color: darkblue;
+}

@@ -1,0 +1,80 @@
+<div class="mainWrapper">
+  <div class="pageHeader">Kreiranje Novog Taska</div>
+
+  <div class="mainContainer">
+    <div class="form-group">
+      <div class="form-label">Naziv Taska</div>
+      <input type="text" class="form-text-input" [(ngModel)]="taskData.name" />
+    </div>
+
+    <!-- <div class="form-group">
+      <div class="form-label">Zaduženi Korisnici</div>
+      <ejs-multiselect
+        [dataSource]="users"
+        placeholder="Odaberi korisnike"
+        [fields]="{ value: '_id', text: 'fullName' }"
+        [enableSelectionOrder]="true"
+        mode="CheckBox"
+        popupHeight="550px"
+        [showDropDownIcon]="true"
+        showSelectAll="true"
+        filterBarPlaceholder="Filter"
+        [(ngModel)]="taskData.users"
+      >
+      </ejs-multiselect>
+    </div> -->
+
+    <div class="form-group">
+      <div class="form-label">Razdoblje</div>
+      <ejs-daterangepicker
+        #dateRangeFilter
+        format="dd/MM/yyyy"
+        [placeholder]="'Odaberi razdoblje'"
+        (focus)="dateRangeFilter.show()"
+        [(ngModel)]="dateRangeValue"
+        [min]="this.projectTaskService.parentProject.startDate"
+        [max]="this.projectTaskService.parentProject.endDate"
+      ></ejs-daterangepicker>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Opis Projekta</div>
+      <textarea
+        style="
+          width: 300px;
+          height: 300px;
+          max-width: 500px;
+          max-height: 600px;
+          font-size: 15px;
+          padding: 10px;
+        "
+        [(ngModel)]="taskData.note"
+      ></textarea>
+    </div>
+
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        grid-column: 1 / span 2;
+        height: 50px;
+      "
+    >
+      <button
+        class="btn btn-success btn-round"
+        style="margin-right: 20px"
+        (click)="onSave()"
+      >
+        <i class="far fa-save"></i>
+        Spremi
+      </button>
+      <button
+        class="btn btn-danger btn-round"
+        (click)="router.navigateByUrl('')"
+      >
+        <i class="far fa-window-close"></i>
+        Odustani
+      </button>
+    </div>
+  </div>
+</div>

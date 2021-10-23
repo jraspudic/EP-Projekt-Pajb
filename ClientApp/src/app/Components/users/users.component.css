@@ -1,0 +1,21 @@
+.usersTable {
+  width: 100%;
+  margin-top: 40px;
+  border: 1px solid #ccc;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.usersTable td,
+.usersTable th {
+  text-align: center;
+}
+
+.usersTable th {
+  padding: 10px;
+}
+.usersTable td {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 7px;
+}

@@ -1,0 +1,7 @@
+.mainContainer {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 100px 50px;
+  column-gap: 30px;
+  row-gap: 60px;
+}

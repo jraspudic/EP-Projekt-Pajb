@@ -1,0 +1,82 @@
+<div class="mainWrapper">
+  <div class="pageHeader">Kreiranje Korisnika</div>
+
+  <div class="mainContainer">
+    <div class="form-group">
+      <div class="form-label">Ime</div>
+      <input
+        type="text"
+        class="form-text-input"
+        [(ngModel)]="userData.firstName"
+      />
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Prezime</div>
+      <input
+        type="text"
+        class="form-text-input"
+        [(ngModel)]="userData.lastName"
+      />
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Korisničko Ime ( email )</div>
+      <input
+        type="text"
+        class="form-text-input"
+        [(ngModel)]="userData.email"
+        (blur)="checkEmail()"
+      />
+      <div *ngIf="invalidEmail" style="color: red; margin-top: 5px">
+        Molimo unesite valjanu email adresu !
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Lozinka</div>
+      <input
+        type="password"
+        class="form-text-input"
+        [(ngModel)]="userData.password"
+        (blur)="checkPasswords()"
+      />
+
+      <div class="form-label" style="margin-top: 20px">Potvrda Lozinke</div>
+      <input
+        type="password"
+        class="form-text-input"
+        [(ngModel)]="confirmPassword"
+        (blur)="checkPasswords()"
+      />
+      <div *ngIf="passwordsDontMatch" style="color: red; margin-top: 5px">
+        Niste dobro potvrdili lozinku !
+      </div>
+    </div>
+
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        grid-column: 1 / span 2;
+        height: 50px;
+      "
+    >
+      <button
+        class="btn btn-success btn-round"
+        style="margin-right: 20px"
+        (click)="onSave()"
+      >
+        <i class="far fa-save"></i>
+        Spremi
+      </button>
+      <button
+        class="btn btn-danger btn-round"
+        (click)="router.navigateByUrl('users')"
+      >
+        <i class="far fa-window-close"></i>
+        Odustani
+      </button>
+    </div>
+  </div>
+</div>

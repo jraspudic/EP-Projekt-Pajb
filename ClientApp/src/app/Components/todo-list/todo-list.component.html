@@ -1,0 +1,432 @@
+<div class="todoMainContainer" [ngClass]="{ deletedShown: showDeleted }">
+  <div class="todo-input-title">
+    <input
+      type="text"
+      class="todo-input"
+      placeholder="Unesite todo item"
+      [(ngModel)]="todoTitle"
+      (keyup.enter)="addTodo()"
+    />
+  </div>
+  <!-- (cdkDropListDropped)="todoDrop($event)" -->
+  <div cdkDropList class="todo-list-container">
+    <div cdkDrag class="todo-item" *ngFor="let todo of todosFiltered()">
+      <div class="todo-item-left">
+        <i
+          *ngIf="!todo.editing && !todo.title"
+          class="fas fa-grip-vertical"
+          style="padding-right: 15px; padding-left: 7px; cursor: pointer"
+        ></i>
+        <input
+          *ngIf="!todo.editing && !todo.title"
+          type="checkbox"
+          [(ngModel)]="todo.done"
+          (change)="todoCrossedOut(todo)"
+          style="margin-right: 5px"
+        />
+
+        <!-- <i
+            *ngIf="
+              !todo.editing &&
+              (todo.note?.length > 0 || todo.hasNote) &&
+              !todo.title
+            "
+            class="fas fa-sticky-note"
+            style="margin-left: 8px; cursor: pointer; color: #1572e8"
+            (click)="quickOpenNote(todo)"
+          ></i> -->
+
+        <!-- <ejs-tooltip>
+            <ng-template #content>
+              <div *ngFor="let user of todo.teamMemberResponsibleStrings">
+                {{ user }}
+              </div>
+            </ng-template>
+            <i
+              *ngIf="
+                !todo.editing &&
+                todo.teamMemberResponsible &&
+                todo.teamMemberResponsible.length == 1 &&
+                !todo.title
+              "
+              class="fas fa-user"
+              [ngClass]="{
+                assignedToUser: todo.teamMemberResponsible.includes(
+                  this.currentUser.id
+                ),
+                finishedTodo: todo.done
+              }"
+              style="margin-left: 8px; cursor: pointer; color: #1572e8"
+              (click)="quickOpenMembers(todo)"
+            ></i>
+          </ejs-tooltip> -->
+
+        <!-- <ejs-tooltip>
+            <ng-template #content>
+              <div *ngFor="let user of todo.teamMemberResponsibleStrings">
+                {{ user }}
+              </div>
+            </ng-template>
+            <i
+              *ngIf="
+                !todo.editing &&
+                todo.teamMemberResponsible &&
+                todo.teamMemberResponsible.length > 1 &&
+                !todo.title
+              "
+              class="fas fa-users"
+              [ngClass]="{
+                assignedToUser: todo.teamMemberResponsible.includes(
+                  this.currentUser.id
+                ),
+                finishedTodo: todo.done
+              }"
+              style="margin-left: 8px; cursor: pointer; color: #1572e8"
+              (click)="quickOpenMembers(todo)"
+            ></i>
+          </ejs-tooltip> -->
+
+        <div
+          *ngIf="!todo.editing; else editingTodo"
+          class="todo-item-label"
+          (dblclick)="editTodo(todo)"
+          [ngClass]="{
+            'todo-completed': todo.done,
+            todoTitle: todo.title,
+            todoUnableToResolve: todo.unableToResolve
+          }"
+        >
+          {{ todo.name }}
+        </div>
+
+        <span
+          *ngIf="!todo.title && type == 'taskList'"
+          style="
+            min-width: 75px;
+            color: #999;
+            text-align: right;
+            padding-right: 5px;
+            cursor: pointer;
+          "
+          (click)="quickOpenEstimateTime(todo)"
+          >{{ todo.estimatedTimeInMin | estimatedTime }}</span
+        >
+        <ng-template #editingTodo>
+          <input
+            type="text"
+            class="todo-item-edit"
+            [(ngModel)]="todo.name"
+            (blur)="doneEdit(todo)"
+            (keyup.enter)="doneEdit(todo)"
+            (keyup.esc)="cancelEdit(todo)"
+            autofocus
+          />
+        </ng-template>
+      </div>
+      <div *ngIf="!todo.editing" class="todo-item-actions">
+        <div #todoMenu *ngIf="todo.menuOpen" class="todoMenu">
+          <ng-container>
+            <div
+              *ngIf="!todo.title"
+              class="todoMenuitemOuterDiv"
+              (click)="openNoteDialog(todo)"
+            >
+              <span class="todoMenuItem"
+                ><i
+                  class="fas fa-sticky-note"
+                  [ngClass]="{
+                    activeColor:
+                      todo.note?.length > 0 ||
+                      todo.hasNote ||
+                      todo.attachments?.length > 0
+                  }"
+                ></i
+                >&nbsp;&nbsp;Note</span
+              >
+            </div>
+
+            <div
+              *ngIf="!todo.title"
+              class="todoMenuitemOuterDiv"
+              (click)="openMembersDialog(todo)"
+            >
+              <span
+                class="todoMenuItem"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <span>
+                  <i
+                    [ngClass]="{
+                      activeColor: todo.teamMemberResponsible.length > 0,
+                      assignedToUser: todo.teamMemberResponsible.includes(
+                        this.currentUser.id
+                      ),
+                      finishedTodo:
+                        todo.done && todo.teamMemberResponsible.length > 0
+                    }"
+                    class="fas fa-users"
+                  ></i
+                  >&nbsp;&nbsp;Team Member</span
+                >
+                <span style="margin-left: 19px">Responsible</span>
+              </span>
+            </div>
+
+            <div
+              class="todoMenuitemOuterDiv todoMenuItemDelete"
+              (click)="deleteTodo(todo.id)"
+            >
+              <span class="todoMenuItem"
+                ><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Delete
+              </span>
+            </div>
+          </ng-container>
+        </div>
+        <span class="elipsis-icon-span" (click)="todoMenuOpen(todo)">
+          <i
+            class="fas fa-ellipsis-v"
+            [ngClass]="{ activeColor: todo.menuOpen }"
+          ></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="todoCheckAllItemsContainer">
+    <div class="todoCheckAllDiv" style="margin-left: 31px">
+      <!-- <label class="showAssignedToMeLabel"
+        ><input
+          type="checkbox"
+          (change)="showAssignedToMeChange()"
+          [(ngModel)]="showAssignedToMe"
+        />&nbsp;&nbsp;Show only assigned to me</label
+      > -->
+    </div>
+  </div>
+
+  <div class="todoFilterContainer">
+    <div class="todoFilterDiv">
+      <button
+        style="margin-left: 0"
+        class="todoFilterBtn"
+        [ngClass]="{ activeFilterBtn: filter === 'all' }"
+        (click)="changeFilter('all')"
+      >
+        All ({{ todoItemsLength() }})
+      </button>
+      <button
+        class="todoFilterBtn"
+        [ngClass]="{ activeFilterBtn: filter === 'active' }"
+        (click)="changeFilter('active')"
+      >
+        Active ({{ remaining() }})
+      </button>
+      <button
+        class="todoFilterBtn"
+        [ngClass]="{ activeFilterBtn: filter === 'completed' }"
+        (click)="changeFilter('completed')"
+      >
+        Done ({{ todoItemsLength() - remaining() }})
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <ejs-dialog
+    id="membersDialog"
+    class="membersDialog"
+    #membersDialog
+    [header]="currentTodoName"
+    width="400px"
+    [visible]="false"
+    [isModal]="true"
+    (overlayClick)="onOverlayClickMembers()"
+    [showCloseIcon]="true"
+    (open)="membersDialogOpened()"
+    (close)="closeMembersDialog()"
+    style="box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); border-radius: 4px"
+  >
+    <ng-template #content>
+      <div class="form-group todoMembersDiv">
+        <label class="todoDialogLabel" for="name">Team Member Responsible</label>
+        <ejs-multiselect
+          #multiSelectMembers
+          [dataSource]="members"
+          placeholder="Select members"
+          [fields]="fields"
+          popupHeight="550px"
+          [allowFiltering]="true"
+          [enableSelectionOrder]="true"
+          [mode]="'CheckBox'"
+          [showDropDownIcon]="true"
+          [filterBarPlaceholder]="'Search'"
+          [(ngModel)]="selectedMembers"
+        >
+        </ejs-multiselect>
+      </div>
+    </ng-template>
+  </ejs-dialog>
+  
+
+  <ejs-dialog
+    id="todoNoteDialog"
+    class="todoNoteDialog"
+    #noteDialog
+    [header]="currentTodoName"
+    width="400px"
+    height="500px"
+    [visible]="false"
+    [isModal]="true"
+    (overlayClick)="onOverlayClickNote()"
+    [showCloseIcon]="true"
+    (close)="closeNoteDialog()"
+    (open)="noteDialogOpened()"
+    style="
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      border: 0;
+      padding-bottom: 10px;
+      overflow: auto;
+      resize: both;
+      max-width: 1200px;
+      min-width: 250px;
+      min-height: 250px;
+    "
+  >
+    <ng-template #content>
+      <div
+        class="form-group todoNoteDiv"
+        [ngClass]="{
+          closedAttachments:
+            !noteAttachmentsExpanded || !(currentTodo?.attachments?.length > 0)
+        }"
+      >
+        <div class="noteTextContainer">
+          <ejs-richtexteditor
+            #todoRTE
+            id="todoRTE"
+            [toolbarSettings]="toolsNoteRte"
+            [(ngModel)]="note"
+            [ngModelOptions]="{ standalone: true }"
+            style="text-align: start; max-height: 1000px; border-bottom: 0"
+          >
+          </ejs-richtexteditor>
+        </div>
+  
+        <div id="noteAttachments">
+          <div
+            class="noteAttachmentsTitle"
+            (click)="noteAttachmentsTitleClick()"
+            [ngClass]="{ active: currentTodo?.attachments?.length > 0 }"
+          >
+            <i *ngIf="!noteAttachmentsExpanded" class="fas fa-chevron-right"></i>
+            <i *ngIf="noteAttachmentsExpanded" class="fas fa-chevron-down"></i>
+            Attachments ( {{ currentTodo?.attachments?.length }} )
+          </div>
+          <ejs-uploader
+            #noteAttachmentUploader
+            id="noteAttachmentUploader"
+            [asyncSettings]="filePath"
+            (success)="onUploadSuccessNote($event)"
+            (failure)="onUploadFailureNote($event)"
+            (uploading)="onFileUploadNote($event)"
+            (removing)="onFileRemoveNote($event)"
+            [autoUpload]="true"
+            [multiple]="false"
+          ></ejs-uploader>
+          <div
+            *ngIf="
+              noteAttachmentsExpanded && currentTodo?.attachments?.length > 0
+            "
+            class="noteAttachmentsContainer"
+          >
+            <div *ngFor="let item of currentTodo?.attachments">
+              <figure *ngIf="item.imageThumbnail">
+                <img
+                  class="attGalleryGridViewThumbnail"
+                  [src]="item.imageThumbnail"
+                  alt=""
+                />
+                <figcaption>
+                  <div class="attachmentDataDiv">
+                    <div class="attachmentDataRemoveBtn">
+                      <i
+                        class="fas fa-trash"
+                        style="font-size: 16px; cursor: pointer; color: red"
+                        (click)="removeAttachment(item.id)"
+                      ></i>
+                    </div>
+  
+                    <div class="attachmentDataInfo">
+                      <div class="attachmentFigcaption">
+                        size: {{ item.size }}
+                      </div>
+                    </div>
+  
+                    <div class="attachmentDataBtns">
+                      <i
+                        class="fas fa-eye"
+                        style="font-size: 19px; cursor: pointer"
+                        (click)="viewAttachment(item)"
+                      ></i>
+                      <i
+                        class="fas fa-download"
+                        style="font-size: 16px; cursor: pointer"
+                        (click)="downloadFile(item.diskName, item.name)"
+                      ></i>
+                    </div>
+                  </div>
+                </figcaption>
+              </figure>
+  
+              <figure *ngIf="!item.imageThumbnail">
+                <i [class]="item.icon" style="font-size: 100px"></i>
+                <figcaption>
+                  <div class="attachmentDataDiv">
+                    <div class="attachmentDataRemoveBtn">
+                      <i
+                        class="fas fa-trash"
+                        style="font-size: 16px; cursor: pointer; color: red"
+                        (click)="removeAttachment(item.id)"
+                      ></i>
+                    </div>
+  
+                    <div class="attachmentDataInfo">
+                      <div class="attachmentFigcaption">
+                        size: {{ item.size }}
+                      </div>
+                    </div>
+  
+                    <div class="attachmentDataBtns">
+                      <i
+                        class="fas fa-eye"
+                        style="font-size: 19px; cursor: pointer"
+                        (click)="viewAttachment(item)"
+                      ></i>
+                      <i
+                        class="fas fa-download"
+                        style="font-size: 16px; cursor: pointer"
+                        (click)="downloadFile(item.diskName, item.name)"
+                      ></i>
+                    </div>
+                  </div>
+                </figcaption>
+              </figure>
+  
+              <div class="attGalleryGridText">
+                <span style="max-width: 100px"
+                  ><i [class]="item.icon" style="font-size: 20px"></i>
+                  {{ item.name }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ejs-dialog>
+   -->

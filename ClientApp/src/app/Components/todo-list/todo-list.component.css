@@ -1,0 +1,268 @@
+.todo-input {
+  width: 100%;
+  padding: 6px 0px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.todo-input:focus {
+  box-shadow: 0 0 8px rgba(49, 122, 185, 0.6) !important;
+  border: 1px solid rgba(81, 203, 238, 1) !important;
+}
+
+.todo-input:focus {
+  outline: 0;
+}
+
+.todo-item {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation-duration: 0.3s;
+}
+/* .todo-item:hover {
+        background-color: lightcyan;
+      } */
+
+.todo-item-left {
+  /* later*/
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.todo-item-label {
+  width: 100%;
+  padding: 10px;
+  margin-left: 12px;
+  cursor: pointer;
+  word-break: break-word;
+}
+
+.todo-item-edit {
+  font-size: 16px;
+  color: #495057;
+  margin: 5px auto;
+  width: 95%;
+  border-radius: 4px;
+  font-family: sans-serif;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  border: 1px solid #dddddd;
+}
+
+.todo-item-edit:focus {
+  box-shadow: 0 0 8px rgba(49, 122, 185, 0.6) !important;
+  border: 1px solid rgba(81, 203, 238, 1) !important;
+}
+
+.todo-completed {
+  text-decoration: line-through;
+  color: grey;
+}
+
+.todoCheckAllItemsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 16px;
+  padding-top: 14px;
+  margin-bottom: 14px;
+  margin: 0px 10px 20px;
+}
+
+.todoFilterContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+
+  padding-top: 14px;
+  padding-bottom: 24px;
+  margin-bottom: 14px;
+}
+
+/*CSS Transitions*/
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.elipsis-icon-span {
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.todoFilterBtn {
+  font-size: 14px;
+  background-color: white;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 888px;
+  margin-left: 10px;
+}
+
+.activeFilterBtn,
+button.todoFilterBtn:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+.activeColor {
+  color: #1572e8;
+}
+
+.todoMainContainer {
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding-top: 10px;
+  color: #495057;
+}
+
+.todoMainContainer.deletedShown {
+  border-color: red;
+}
+/* .todoCheckAllItemsContainer, */
+.todoFilterContainer,
+.todo-list-container,
+.todo-input-title {
+  margin: 20px 10px;
+}
+
+.todoFilterDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.todo-item-actions {
+  position: relative;
+}
+
+.todoMenu {
+  /* background-color: rgb(252, 252, 252); */
+  background-color: #fff;
+  height: 300px;
+  width: 200px;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: -200px;
+
+  border-radius: 4px;
+  /* box-shadow: 0 0 8px rgba(49, 122, 185, 0.6);
+      border: 1px solid rgba(81, 203, 238, 1) */
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.todoMenuitemOuterDiv {
+  color: #495057;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todoMenuitemOuterDiv:hover {
+  background-color: #eee;
+}
+
+.todoMenuitemOuterDiv.todoMenuItemDelete {
+  color: red;
+}
+.todoMenuitemOuterDiv.todoMenuItemDelete:hover {
+  background-color: red;
+  color: #fff;
+}
+
+.todoMenuItemUndelete {
+  color: #1572e8;
+}
+
+.todoMenuitemOuterDiv.todoMenuItemUndelete:hover {
+  background-color: #1572e8;
+  color: #fff;
+}
+
+.todoMenuItem {
+  color: inherit;
+}
+
+.todoMembersDiv {
+  padding: 30px 25px 50px;
+  text-align: center;
+}
+
+.todoNoteDiv {
+  text-align: center;
+  padding: 0px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 65% 35%;
+}
+
+.todoNoteDiv.closedAttachments {
+  grid-template-rows: auto 37px;
+}
+
+.noteTextContainer,
+.noteAttachmentsContainer {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.noteTextContainer {
+  border-bottom: 1px dashed #ccc;
+}
+
+.todoDialogLabel {
+  margin-bottom: 10px;
+}
+
+.todoTitle {
+  font-weight: bold;
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  text-decoration: none !important;
+  color: #495057 !important;
+}
+
+.todoUnableToResolve {
+  text-decoration: line-through;
+  color: red;
+}
+
+.assignedToUser {
+  color: red !important;
+}
+.finishedTodo {
+  color: green !important;
+}
+
+.showAssignedToMeLabel {
+  display: flex;
+  align-items: center;
+}
+
+.btn-green {
+  background-color: rgba(144, 238, 144, 1);
+}
+
+.btn-green:hover {
+  background-color: rgba(144, 238, 144, 0.8);
+}
