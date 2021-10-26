@@ -44,6 +44,10 @@ router.put("/:id", async (req, res) => {
       (protask.parentId = parentId),
       (protask.todos = todos);
 
+    console.log("protask");
+    console.log(protask);
+    console.log("todos");
+    console.log(todos);
     const editProtask = await protask.save();
     res.json(editProtask);
 
@@ -75,7 +79,7 @@ router.get("/task/:id", async (req, res) => {
   res.json(protask);
 });
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   console.log("delte");
   const protask = await Task.findByIdAndRemove(req.params.id);
   if (protask) {

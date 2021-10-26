@@ -36,7 +36,7 @@
           <th>Izbriši</th>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users">
+          <tr *ngFor="let user of users | userFilter: searchBoxValue">
             <td style="text-align: center" style="cursor: pointer">
               <button class="gridButton" (click)="editUser(user)">
                 <i

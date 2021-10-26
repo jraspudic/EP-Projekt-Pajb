@@ -20,11 +20,25 @@
       </button>
     </div>
 
-    <div *ngFor="let project of tasksDisplay" class="projectConteiner">
+    <div
+      *ngFor="let project of tasksDisplay | taskListFilter: searchBoxValue"
+      class="projectConteiner"
+    >
       <div class="projectName">
         <div>
-          <i class="fas fa-chevron-down" style="cursor: pointer"></i
-          >&nbsp;&nbsp;&nbsp;{{ project.name }}
+          <i
+            *ngIf="project.opened"
+            (click)="project.opened = false"
+            class="fas fa-chevron-down"
+            style="cursor: pointer"
+          ></i>
+          <i
+            *ngIf="!project.opened"
+            (click)="project.opened = true"
+            class="fas fa-chevron-right"
+            style="cursor: pointer"
+          ></i>
+          &nbsp;&nbsp;&nbsp;{{ project.name }} ({{ project.tasks.length }})
           <button
             class="gridButton"
             style="margin-left: 20px"
@@ -52,7 +66,10 @@
           </button>
         </div>
       </div>
-      <table *ngIf="project.tasks.length > 0" class="tasksTable">
+      <table
+        *ngIf="project.tasks.length > 0 && project.opened"
+        class="tasksTable"
+      >
         <colgroup>
           <col span="1" style="width: 12%" />
           <col span="1" style="width: 30%" />

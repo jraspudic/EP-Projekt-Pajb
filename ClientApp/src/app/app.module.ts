@@ -15,12 +15,18 @@ import {
   MultiSelectModule,
 } from '@syncfusion/ej2-angular-dropdowns';
 import { DateRangePickerModule } from '@syncfusion/ej2-angular-calendars';
+
 import { ProjectEditComponent } from './Components/project-edit/project-edit.component';
 import { UserAddComponent } from './Components/user-add/user-add.component';
 import { UserEditComponent } from './Components/user-edit/user-edit.component';
 import { TaskAddComponent } from './Components/task-add/task-add.component';
 import { TaskEditComponent } from './Components/task-edit/task-edit.component';
 import { ToDoListComponent } from './Components/todo-list/todo-list.component';
+import { TaskListFilterPipe } from './Helpers/taskList.pipe';
+import { UserFilterPipe } from './Helpers/user.pipe';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogModule } from '@syncfusion/ej2-angular-popups';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,8 @@ import { ToDoListComponent } from './Components/todo-list/todo-list.component';
     TaskAddComponent,
     TaskEditComponent,
     ToDoListComponent,
+    TaskListFilterPipe,
+    UserFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +52,9 @@ import { ToDoListComponent } from './Components/todo-list/todo-list.component';
     DropDownListModule,
     MultiSelectModule,
     DateRangePickerModule,
+    DragDropModule,
+    BrowserAnimationsModule,
+    DialogModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -52,7 +52,9 @@ export class TaskListComponent implements OnInit {
             task.note,
             task.parentId,
             task.projectAdmin,
-            []
+            [],
+            null,
+            true
           )
         );
       }
@@ -97,5 +99,14 @@ export class TaskListComponent implements OnInit {
     this.router.navigateByUrl('editTask/' + task._id);
   }
 
-  deleteTask(task) {}
+  deleteTask(task) {
+    this.projectTaskService.deleteTask(task._id).subscribe((data) => {
+      this.projectTaskService.getAll().subscribe((data) => {
+        console.log('Task data');
+        console.log(data);
+        this.tasks = data;
+        this.formatTasks();
+      });
+    });
+  }
 }

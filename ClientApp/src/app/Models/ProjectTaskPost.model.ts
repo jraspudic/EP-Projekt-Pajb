@@ -1,3 +1,5 @@
+import { Todo } from './Todo.model';
+
 export class ProjectTaskPost {
   constructor(
     public name: string,
@@ -5,6 +7,7 @@ export class ProjectTaskPost {
     public startDate: any,
     public endDate: any,
     public note: string,
-    public parentId: string
+    public parentId: string,
+    public todos?: Todo[]
   ) {}
 }

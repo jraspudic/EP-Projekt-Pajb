@@ -29,19 +29,21 @@ const taskSchema = new Schema({
     type: Schema.ObjectId,
     ref: "User",
   },
-  todos: {
-    name: String,
-    order: String,
-    users: [
-      {
-        type: Schema.ObjectId,
-        ref: "User",
-      },
-    ],
-    title: Boolean,
-    checked: Boolean,
-    note: String,
-  },
+  todos: [
+    {
+      name: String,
+      order: String,
+      users: [
+        {
+          type: Schema.ObjectId,
+          ref: "User",
+        },
+      ],
+      title: Boolean,
+      checked: Boolean,
+      note: String,
+    },
+  ],
 });
 
 module.exports = mongoose.model("Task", taskSchema);

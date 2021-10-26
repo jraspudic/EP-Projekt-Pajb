@@ -12,6 +12,7 @@ export class TasksDisplay {
     public parentId: string,
     public projectAdmin: string,
     public tasks?: TasksDisplay[],
-    public todos?: Todo[]
+    public todos?: Todo[],
+    public opened?: boolean
   ) {}
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CheckBoxSelectionService } from '@syncfusion/ej2-angular-dropdowns';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { Todo } from 'src/app/Models/Todo.model';
 import { User } from 'src/app/Models/User.model';
 import { ProjectTaskService } from 'src/app/Services/project-task.service';
 import { UserService } from 'src/app/Services/user.service';
+import { ToDoListComponent } from '../todo-list/todo-list.component';
 
 @Component({
   selector: 'app-task-edit',
@@ -64,7 +65,7 @@ export class TaskEditComponent implements OnInit {
     this.taskData.name = this.projectTaskService.editedTask.name;
     this.taskData.note = this.projectTaskService.editedTask.note;
     this.taskData.users = [];
-    this.projectTaskService.editedTask.users.forEach((user) => {
+    this.projectTaskService.editedTask.users?.forEach((user) => {
       this.taskData.users.push(user._id);
     });
 
@@ -73,7 +74,7 @@ export class TaskEditComponent implements OnInit {
       this.projectTaskService.editedTask.endDate,
     ];
 
-    // this.todos = this.projectTaskService.editedTask.todos;
+    this.todos = this.projectTaskService.editedTask?.todos;
   }
 
   formatUsers() {
@@ -82,10 +83,23 @@ export class TaskEditComponent implements OnInit {
     });
   }
 
+  @ViewChild('todoComponent') todoComponent: ToDoListComponent;
+
   onSave() {
+    console.log(this.todoComponent.todos);
+
+    var todosPost: Todo[] = [];
+    this.todoComponent.todos.forEach((todo, index) => {
+      todosPost.push(
+        new Todo(todo.name, index, [], todo.title, todo.checked, todo.note)
+      );
+    });
+
     this.taskData.startDate = this.dateRangeValue[0]?.toISOString();
     this.taskData.endDate = this.dateRangeValue[1]?.toISOString();
     console.log(this.taskData);
+
+    this.taskData.todos = todosPost;
 
     this.projectTaskService
       .editProject(this.taskData, this.id)

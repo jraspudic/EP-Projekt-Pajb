@@ -203,3 +203,7 @@ body {
 .headerMenuItem a:hover {
   background-color: darkblue;
 }
+
+.e-dlg-content {
+  padding: 0 !important;
+}

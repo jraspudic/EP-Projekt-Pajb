@@ -24,4 +24,8 @@ export class ProjectTaskService {
   getAll() {
     return this.http.get<any>('http://localhost:3000/tasks');
   }
+
+  deleteTask(id) {
+    return this.http.delete<any>(`http://localhost:3000/tasks/${id}`);
+  }
 }
